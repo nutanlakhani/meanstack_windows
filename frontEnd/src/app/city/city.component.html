@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row mt-5 mb-1">
+        <div class="col-md-12">
+            <a [routerLink]="['add']">Add City</a>
+        </div>
+    </div>
+<table datatable [dtOptions]="dtOptions" class="row-border hover mt-2">
+<thead>
+    <tr>    
+    <th>City name</th>
+    <th>Status</th>
+    <th>Created At</th>
+    </tr>
+</thead>
+<tbody *ngIf="cities?.length != 0">
+    <tr *ngFor="let city of cities">        
+        <td>{{ city.cityName }}</td>
+        <td>{{ city.status }}</td>
+        <td>{{ city.createAt | date:'dd/MM/yyyy' }}</td>
+    </tr>
+</tbody>
+<tbody *ngIf="cities?.length == 0">
+    <tr>
+    <td colspan="3" class="no-data-available">No data!</td>
+    </tr>
+<tbody>
+</table>
+</div>

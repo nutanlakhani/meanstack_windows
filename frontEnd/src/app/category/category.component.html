@@ -1,0 +1,121 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+ 
+                <div class="card-header">
+                    <div class="mb-4">
+                        <i class="fa fa-align-justify"></i>
+                        <b class="ml-1 font-15">Category List</b>
+                        <button (click)="addUpdateCategory('add')" class="btn btn-primary mt-0 mr-2 pull-right">Add Category</button>
+                    </div>
+                    <form class="form-horizontal filter-form" name="filterForm" (submit)="filterData()">
+                        <div class="form-group row">
+                            <div class="form-wrapper col-md-6 col-sm-12">
+                                <label class="col-form-label">Category Name</label>
+                                <div class="form-input">
+                                    <input type="text" class="form-control" name="name" [(ngModel)]="params.cat_name" autocomplete="off" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="form-wrapper col-md-6 col-sm-12">
+                                <label class="col-form-label">Date Range</label>
+                                <div class="form-input input-date">
+                                    <input class="form-control" [bsConfig]="{ containerClass: 'theme-blue',  rangeInputFormat: 'DD-MM-YYYY' }" #drp="bsDaterangepicker"
+                                        name="date" bsDaterangepicker [(ngModel)]="params.date" readonly>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-md btn-default" type="button" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">
+                                            <i class="icon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="user-buttons float-right text-right col-md-12">                                
+                                <button class="btn btn-primary mt-0 mr-2" type="submit" name="filter">Filter</button>
+                                <button class="btn btn-danger mt-0" [disabled]="objectKeys(params).length < 1 && !isFilter" (click)="resetFilter()" name="clear">Clear</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <div class="entry-select mb-4">
+                        <span>Show</span>
+                        <select [(ngModel)]="limit" (change)="sorting()">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped user">
+                            <thead>
+                                <tr>
+                                    <th class="cat-id text-center">
+                                            <div><span>Id</span></div>
+                                    </th>
+                                    <th class="cre-name">
+                                        <div (click)="headerSort('cat_name',order_type)">
+                                            <span class="col-header">Name</span>
+                                            <span *ngIf="sort_field != 'cat_name'" class="both-arrow"></span>
+                                            <span *ngIf="order_type == 'desc' && sort_field=='cat_name'" class="up-arrow"></span>
+                                            <span *ngIf="order_type == 'asc' &&sort_field=='cat_name'" class="down-arrow"></span>
+                                        </div>
+                                    </th>
+                                    <th class="cre-name">
+                                            <div (click)="headerSort('createdAt',order_type)">
+                                            <span class="col-header">Created Date</span>
+                                            <span *ngIf="sort_field != 'createdAt'" class="both-arrow"></span>
+                                            <span *ngIf="order_type == 'desc' && sort_field=='createdAt'" class="up-arrow"></span>
+                                            <span *ngIf="order_type == 'asc' &&sort_field=='createdAt'" class="down-arrow"></span>
+                                        </div>
+                                    </th>
+                                    <th>Status</th>
+                                    <th class="cat-action">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let category of categoriesList;let i=index">
+                                    <td class="cat-id text-center">{{(i+1)+((currentPage - 1)*limit)}}</td>
+                                    <td class="cre-name">{{category.cat_name}}</td>
+                                    <td>{{category.createdAt | date:'dd/MM/yyyy' }}</td>
+                                    <td>
+                                        <label class="switch switch-default switch-3d switch-primary">
+                                            <input type="checkbox" class="switch-input" [(ngModel)]="category.status" (ngModelChange)="updateStatus(category.status, category._id, i)">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                    </td>                                   
+                                    <td class="text-center remove-focus cat-action">                                           
+                                        <div class="action-column">
+                                            <button class="btn btn-sm btn-success mr-1" tooltip="Edit" placement="bottom" (click)="addUpdateCategory('edit', category, i)">
+                                                <i class="icon-pencil"></i></button>
+                                            <button class="btn btn-sm btn-danger mr-1" tooltip="Delete" placement="bottom" (click)="deleteCategory(category._id, i)">
+                                                <i class="icon-trash"></i> </button>
+                                        </div>
+                                    
+                                    </td>
+                                </tr>
+                                <tr *ngIf="!isDataLoading && categoriesList.length === 0" class="text-center">
+                                    <td colspan="5">
+                                        <h4 class="mt-4 mb-4">No record found</h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="show-entries mb-3 float-left">
+                        <span>Showing {{categoriesList.length == 0 ? 0 :currentPage*limit- limit+1}} to {{limit*currentPage > totalItem
+                            ? totalItem : limit*currentPage }} of {{totalItem}} entries</span>
+                    </div>
+                    <div class="table-pagination float-right" *ngIf="categoriesList.length > 0">
+                        <pagination [boundaryLinks]="true" [itemsPerPage]="limit" [totalItems]="totalItem" (pageChanged)="pageChanged($event)" [(ngModel)]="currentPage"
+                            [maxSize]="5" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                            (numPages)="smallnumPages = $event"></pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

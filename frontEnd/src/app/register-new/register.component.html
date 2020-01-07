@@ -1,0 +1,205 @@
+
+<div class="signup-page-main">
+    <div class="site-content">
+        <section class="login-page">
+            <div class="form-main">
+                <h3>Sign up your account</h3>
+                <form [formGroup]="registerForm" noValidate (ngSubmit)="submitForm($event, registerForm.value)">
+                    <div class="top-form-section">
+                        <label class="pic-upload">                            
+                            <input type="file" id="real-input" ng2FileSelect #fileInput [uploader]="uploader"
+                                placeholder="Profile Picture" (change)="imageUpload($event)" formControlName="profile_picture">
+                            <div class="icon">
+                                <img id="blah" class="img" *ngIf="!logo.preview && logo.url" src="{{logo.url}}" (error)="setUserDefaultImage($event)"
+                                    alt="profile-pic">
+
+                                <img id="blah" class="img" *ngIf="logo.preview || !logo.url" src="{{logo.preview}}"
+                                    (error)="setUserDefaultImage($event)" alt="profile-pic">
+                            </div>
+                            <span class="upload-pic file-info">Upload Pic</span>
+                            <div class="pic-text" *ngIf="!logo.preview && !logo.url && !logo.extensionErr && isSubmitted">
+                                <span class="text-danger ">
+                                    Profile picture is required.
+                                </span>
+                            </div>
+                            <span class="text-danger pic-text" *ngIf="logo.extensionErr == true ">
+                                Profile is invalid.
+                            </span>
+                        </label>
+
+                        <ul class="top-form">
+                            <li>
+                                <div class="input">
+                                    <input type="text" placeholder="First Name" formControlName="first_name" maxlength="15"
+                                        minlength="2" autocomplete="off" >
+                                   
+                                </div>
+                                <p class="text-danger text-left" *ngIf="registerForm.controls['first_name'].hasError('required') && isSubmitted">First name is required.</p>
+                               
+                                <p class="text-danger text-left" *ngIf="&& registerForm.controls['first_name'].hasError('minlength') && isSubmitted">First name must be minimum 5 character</p>
+                            </li>
+                            <li>
+                                <div class="input">
+                                   
+                                    <input type="text" placeholder="Last Name" formControlName="last_name" maxlength="15"
+                                        minlength="2" autocomplete="off" >
+                                </div>
+                                <p class="text-danger text-left" *ngIf="registerForm.controls['last_name'].hasError('required') && isSubmitted">Last name is required</p>
+                                
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="bottom-form">
+                        <li>
+                            <div class="input">                                
+                                <input type="text" placeholder="Email Address" formControlName="email" maxlength="100"
+                                    autocomplete="off">
+                            </div>
+                            <p class="text-danger text-left" *ngIf="registerForm.controls['email'].hasError('required') && isSubmitted">This field is required</p>
+                            
+                        </li>
+                        <li>
+                            <div class="input">                                
+                                <input type="tel" placeholder="Phone Number" formControlName="phone" phoneNumberOnly
+                                    maxlength="20" autocomplete="off" >
+                            </div>
+                            <p class="text-danger text-left" *ngIf="registerForm.controls['phone'].hasError('required') && isSubmitted">This field is required</p>
+                            
+                        </li>
+                        <li>
+                            <div class="input">                                
+                                <input type="password" placeholder="Password" formControlName="password" maxlength="16"
+                                    minlength="8" appPasswordValidator autocomplete="off" appBlockCopyPaste>
+                            </div>
+                            <p class="text-danger text-left" *ngIf="registerForm.controls['password'].hasError('required') && isSubmitted">This field is required</p>
+                            
+                        </li>
+                        <li>
+                            <div class="input">                                
+                                <input type="password" autocomplete="off" appPasswordValidator placeholder="Repeat password"
+                                    name="confirmPassword" formControlName="confirmPassword" maxlength="16" minlength="8"
+                                    appBlockCopyPaste autocomplete="off">
+                            </div>
+                            <p class="text-danger text-left" *ngIf="registerForm.controls['confirmPassword'].hasError('required') && isSubmitted">This field is required</p>
+                            
+                        </li>
+                        <li>
+                            <div class="input">                                
+                                <input type="url" placeholder="Portfolio Link" formControlName="portfolio_link"
+                                    maxlength="100" autocomplete="off" >
+                            </div>
+                            <p class="text-danger text-left" *ngIf="registerForm.controls['portfolio_link'].hasError('url') && isSubmitted">Url is invalid</p>
+                        </li>
+                        <li>
+                            <div class="input">
+                                <input type="url" placeholder="Secondary Portfolio Link" formControlName="sec_portfolio_link"
+                                    maxlength="100" autocomplete="off" >                                
+                            </div>
+                            <p class="text-danger text-left" *ngIf="registerForm.controls['sec_portfolio_link'].hasError('url') && isSubmitted">Url is invalid</p>
+                        </li>
+                        
+                       
+                        <li>
+                            <div class="input">
+                                <input type="text" placeholder="Instagram Handle" formControlName="insta_handle"
+                                    maxlength="100" autocomplete="off" >                                
+                            </div>
+                            
+                        </li>
+                        <li>
+                            <div class="input">
+                                <input type="text" placeholder="Who are your most influential artist ?" formControlName="influent_artist"
+                                    maxlength="100" autocomplete="off" >                                
+                            </div>
+                            
+                        </li>
+                        <li>
+                            <div class="input">
+                                <input type="text" placeholder="What style of art do you mostly identify with?"
+                                    formControlName="art_style" maxlength="100" autocomplete="off" >                               
+                            </div>
+                            
+
+                        </li>
+                        <li>
+                            <div class="input">
+                                <label>Are you a US citizen ?</label>
+                                <div class="radio c-box">
+                                    <div class="inner-box">
+                                        <input id="us_citizen" type="radio" name="us_citizen" formControlName="us_citizen"
+                                            [value]="true">
+                                        <label for="us_citizen">Yes</label>
+                                    </div>
+                                    <div class="inner-box">
+                                        <input id="not_us_citizen" type="radio" name="us_citizen" formControlName="us_citizen"
+                                            [value]="false">
+                                        <label for="not_us_citizen">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="text_area">
+                            <div class="input">
+                                <textarea formControlName="ship_address" maxlength="1000" autocomplete="off"
+                                     placeholder="Full shipping address"></textarea>
+                            </div>
+                            
+                        </li>                         
+                        <li>
+                            <div class="input">
+                                <label>Do we have permission to display your art on all ecommerce marketplaces ?</label>
+                                <div class="radio c-box">
+                                    <div class="inner-box">
+                                        <input id="display_art" type="radio" name="display_art" formControlName="display_art"
+                                            [value]="true">
+                                        <label for="display_art">Yes</label>
+                                    </div>
+                                    <div class="inner-box">
+                                        <input id="not_display_art" type="radio" name="display_art" formControlName="display_art"
+                                            [value]="false">
+                                        <label for="not_display_art">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>                                          
+                        <li>
+                            <div class="input">
+                                <label>Size of T shirt</label>
+                                <div class="radio c-box">
+                                    <div class="inner-box">
+                                        <input id="small-tshirt" type="radio" name="tshirt_size" formControlName="tshirt_size"
+                                            [value]="1">
+                                        <label for="small-tshirt">S</label>
+                                    </div>
+                                    <div class="inner-box">
+                                        <input id="medium-tshirt" type="radio" name="tshirt_size" formControlName="tshirt_size"
+                                            [value]="2">
+                                        <label for="medium-tshirt">M</label>
+                                    </div>
+                                    <div class="inner-box">
+                                        <input id="large-tshirt" type="radio" name="tshirt_size" formControlName="tshirt_size"
+                                            [value]="3">
+                                        <label for="large-tshirt">L</label>
+                                    </div>
+                                    <div class="inner-box">
+                                        <input id="xlarge-tshirt" type="radio" name="tshirt_size" formControlName="tshirt_size"
+                                            [value]="4">
+                                        <label for="xlarge-tshirt">XL</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="submit">
+                                <button type="submit" [disabled]="btnDisabled">Apply</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>Already have an account?<a [routerLink]="'/login'">Login here</a></p>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
