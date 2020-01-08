@@ -80,7 +80,7 @@
                                 <tr *ngFor="let category of categoriesList;let i=index">
                                     <td class="cat-id text-center">{{(i+1)+((currentPage - 1)*limit)}}</td>
                                     <td class="cre-name">{{category.cat_name}}</td>
-                                    <td>{{category.createdAt | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{category.createdAt | age }}</td>
                                     <td>
                                         <label class="switch switch-default switch-3d switch-primary">
                                             <input type="checkbox" class="switch-input" [(ngModel)]="category.status" (ngModelChange)="updateStatus(category.status, category._id, i)">
@@ -90,9 +90,9 @@
                                     <td class="text-center remove-focus cat-action">                                           
                                         <div class="action-column">
                                             <button class="btn btn-sm btn-success mr-1" tooltip="Edit" placement="bottom" (click)="addUpdateCategory('edit', category, i)">
-                                                <i class="icon-pencil"></i></button>
+                                                Edit</button>
                                             <button class="btn btn-sm btn-danger mr-1" tooltip="Delete" placement="bottom" (click)="deleteCategory(category._id, i)">
-                                                <i class="icon-trash"></i> </button>
+                                               Delete </button>
                                         </div>
                                     
                                     </td>

@@ -1,11 +1,15 @@
-<!-- <div class="col-12  py-3">
-    <a *ngIf="!isLogin" name="login" [routerLink]="['/login']">Login</a>
-    <a *ngIf="isLogin" name="login" (click)="logout()">Logout</a>
-</div> -->
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-        <div class="navbar-nav">
-        <!-- <a class="nav-item nav-link" routerLink="/">Home</a> -->
-        <a *ngIf="!isLogin" name="login" class="nav-item nav-link" [routerLink]="['/login']">Login</a>
-        <a *ngIf="isLogin" name="logout" class="nav-item nav-link text-right" (click)="logout()">Logout</a>
-    </div>
-</nav>
+
+<ul class="nav justify-content-end">
+    <li class="nav-item">
+        <a *ngIf="!isLoggedIn" name="login" class="nav-item nav-link" [routerLink]="['/login']">Login</a>
+    </li>
+    <li class="nav-item dropdown" *ngIf="isLoggedIn">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{profile}}" width="30" height="30" (error)="setDefaultPicture()" class="d-inline-block align-top" alt="">
+         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">   
+          <a class="dropdown-item" name="profile"  [routerLink]="['/profile']" >Update profile</a>      
+          <a class="dropdown-item" name="logout"  (click)="logout()">Logout</a>
+        </div>
+      </li>
+  </ul>

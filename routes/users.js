@@ -8,6 +8,7 @@ var storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
+    
     console.log("file",file);
     let fileNew = file.originalname.split('.');
     if (fileNew.length == 2) {
@@ -21,6 +22,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage});
 router.post('/register', upload.single('profile'), UserSchema.register);
 router.post('/getUser', verifyToken, UserSchema.getUser);
+router.post('/update',  upload.single('profile'), UserSchema.updateUser);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

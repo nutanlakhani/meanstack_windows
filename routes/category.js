@@ -5,13 +5,6 @@ var verifyToken = require('./middleware');
 
 /* GET users listing. */
 
-router.all('/*', function(req, res, next) {
-    res.sendToEncode = function(data) {
-        res.send(data)
-        next();
-    };
-    next();
-});
 router.all('/*', verifyToken);
 router.post('/getCategory', CategoryContoller.getCategory);
 router.post('/createCategory', CategoryContoller.createCategory);

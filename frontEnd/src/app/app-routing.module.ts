@@ -5,8 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { LayoutComponent } from './layout/layout.component';
 import { RegisterComponent } from './register/register.component';
-
-
+import { UpdateProfileComponent } from './profile/update-profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate:[AuthGuardService] },
@@ -16,6 +15,7 @@ const routes: Routes = [
     component:LayoutComponent,
     canActivate:[AuthGuardService],
     children:[
+      { path: 'profile', component:UpdateProfileComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path:'dashboard',

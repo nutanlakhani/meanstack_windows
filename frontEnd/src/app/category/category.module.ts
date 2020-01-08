@@ -16,6 +16,8 @@ import { AddCategoryComponent } from './model/add-category.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CategoryService } from './category.service';
 import { Routes, RouterModule } from '@angular/router';
+import { AgePipe } from '../shared/age.pipe';
+
 
 
 const routes: Routes = [
@@ -40,7 +42,7 @@ const routes: Routes = [
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot()
     ],
-    declarations: [CategoryComponent, AddCategoryComponent],
+    declarations: [CategoryComponent, AddCategoryComponent, AgePipe],
     exports: [CategoryComponent],
     providers: [CategoryService],
     entryComponents: [

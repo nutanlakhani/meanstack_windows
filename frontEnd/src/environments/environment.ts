@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   baseUrl:'http://localhost:3000/',
-  userProfileImgNotFound:'http://localhost:3000/uploads/user.png'
+  userProfileImgNotFound:'../assets/user.png',
+  ASSET_URL:'http://localhost:3000/uploads/'
 };
 
 /*

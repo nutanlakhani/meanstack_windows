@@ -30,11 +30,14 @@ export class AuthService {
   }
 
   register(data){
-    return this.http.post<any>(this.baseUrl+'users/register', data);
+    return this.http.post<any>(this.baseUrl+'register', data);
   }
 
-  logout(){
-    localStorage.removeItem('userInfo');
-    this.route.navigate(['/login']);
+  updateProfile(data){
+    return this.http.post<any>(this.baseUrl+'users/update', data);
+  }
+  
+  logout(data){    
+    return this.http.post<any>(this.baseUrl + 'logout', data);
   }
 }

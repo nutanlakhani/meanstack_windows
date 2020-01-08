@@ -13,8 +13,10 @@ var expressValidator = require('express-validator');
 var config = require('./config/global');
 var cors = require('cors');
 
-
 var app = express();
+
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,18 +39,20 @@ mongoose.connect(config.database.mongoUrl, {useNewUrlParser:true, useUnifiedTopo
   }
 })
 
-app.use(function(req,res,next){
-	res.setHeader('Access-Control-Allow-Origin','*');
-	res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS, PUT,PATCH, DELETE');
-	res.setHeader('Access-Control-Allow-Headers','*');
-	res.setHeader('Access-Control-Allow-Credentials','true');
-	next();
-});
+// app.use(function(req,res,next){
+// 	res.setHeader('Access-Control-Allow-Origin','*');
+// 	res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS, PUT,PATCH, DELETE');
+// 	res.setHeader('Access-Control-Allow-Headers','*');
+// 	res.setHeader('Access-Control-Allow-Credentials','true');
+// 	next();
+// });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cities', cityRouter);
 app.use('/categories', categoryRouter);
+app.use('/uploads',express.static(path.resolve('./uploads')));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

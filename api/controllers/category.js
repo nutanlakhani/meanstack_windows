@@ -82,14 +82,14 @@ var categories = {
                 console.log("err", response)
                 if (err) {
                     var arr = err.split("-");
-                    return res.sendToEncode({
+                    return res.send({
                         status: arr[1],
                         message: arr[0] || 'SWW',
                         data: {}
                     })
                 }
 
-                return res.sendToEncode({
+                return res.send({
                     status: 200,
                     message: 'S',
                     data: response
@@ -122,14 +122,14 @@ var categories = {
             function (err, response) {
                 if (err) {
                     var arr = err.split("-");
-                    return res.sendToEncode({
+                    return res.send({
                         status: arr[1],
                         message: arr[0] || 'SWW',
                         data: {}
                     })
                 }
 
-                return res.sendToEncode({
+                return res.send({
                     status: 200,
                     message: 'S',
                     data: response
@@ -178,14 +178,14 @@ var categories = {
             function (err, response) {
                 if (err) {
                     var arr = err.split("-");
-                    return res.sendToEncode({
+                    return res.send({
                         status: arr[1],
                         message: arr[0] || 'SWW',
                         data: {}
                     })
                 }
 
-                return res.sendToEncode({
+                return res.send({
                     status: 201,
                     message: 'CHBCS',
                     data: response
@@ -237,14 +237,14 @@ var categories = {
             function (err, response) {
                 if (err) {
                     var arr = err.split("-");
-                    return res.sendToEncode({
+                    return res.send({
                         status: arr[1],
                         message: arr[0] || 'SWW',
                         data: {}
                     })
                 }
 
-                return res.sendToEncode({
+                return res.send({
                     status: 200,
                     message: 'CHBUS',
                     data: response
@@ -282,14 +282,14 @@ var categories = {
             function (err, response) {
                 if (err) {
                     var arr = err.split("-");
-                    return res.sendToEncode({
+                    return res.send({
                         status: arr[1],
                         message: arr[0] || 'SWW',
                         data: {}
                     })
                 }
 
-                return res.sendToEncode({
+                return res.send({
                     status: 201,
                     message: 'CHBDS',
                     data: response
@@ -328,14 +328,14 @@ var categories = {
             function (err, response) {
                 if (err) {
                     var arr = err.split("-");
-                    return res.sendToEncode({
+                    return res.send({
                         status: arr[1],
                         message: arr[0] || 'SWW',
                         data: {}
                     })
                 }
 
-                return res.sendToEncode({
+                return res.send({
                     status: 200,
                     message: 'CSHBUS',
                     data: response

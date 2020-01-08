@@ -5,9 +5,9 @@ let verifyToken = (req, res, next) => {
     console.log("req.headers",req.headers);
     let token = req.headers['accesstoken'] || req.headers['authorization'];
     console.log("token", token);
-    if(token) {
-        token = token.split(' ')[1];;
-    }
+    // if(token) {
+    //     token = token.split(' ')[1];;
+    // }
     if(token){
         jwt.verify(token, config.secret, (err, decoded) => {
             if(err){
