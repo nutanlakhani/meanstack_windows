@@ -23,7 +23,7 @@
     "bootstrap": "^4.4.1",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "ng2-file-upload": "^1.4.0",
     "ng2-validation": "^4.2.0",
